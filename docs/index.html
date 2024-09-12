@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Simpletron Machine Language</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' href='style.css'>
+</head>
+<body>
+    <h1>Simpletron Machine Language</h1>
+    <main>
+        <div class="source-column">
+            <div class="source-header">
+                <button type="button">Enviar arquivo...</button>
+            </div>
+            <div class="source-content">
+                <form action=""></form>
+                <textarea
+                    id="source-file"
+                    placeholder="Insira o código fonte aqui ou envie um arquivo."
+                ></textarea>
+            </div>
+        </div>
+        <div class="output-column">
+            <div class="output-header">
+                <button type="button">Run</button>
+                <button type="button">Debug</button>
+                <button type="button">Step back</button>
+                <button type="button">Step forward</button>
+            </div>
+            <div class="output-content">
+                <textarea id="output-display" readonly></textarea>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
