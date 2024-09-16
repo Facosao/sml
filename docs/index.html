@@ -6,33 +6,186 @@
     <title>Simpletron Machine Language</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' href='style.css'>
+    <!-- favicon credit -->
+    <!-- https://game-icons.net/1x1/delapouite/cpu.html#download -->
 </head>
 <body>
     <h1>Simpletron Machine Language</h1>
     <main>
-        <div class="source-column">
-            <div class="source-header">
-                <button type="button">Enviar arquivo...</button>
+        <div class="source-output-row">
+            <div class="source-column">
+                <div class="source-header">
+                    <button type="button">Enviar arquivo...</button>
+                </div>
+                <div class="source-content">
+                    <textarea
+                        id="source-file"
+                        placeholder="Insira o código fonte aqui ou envie um arquivo."
+                    ></textarea>
+                </div>
             </div>
-            <div class="source-content">
-                <form action=""></form>
-                <textarea
-                    id="source-file"
-                    placeholder="Insira o código fonte aqui ou envie um arquivo."
-                ></textarea>
+            <div class="output-column">
+                <div class="output-header">
+                    <button type="button" id="btn-load">Carregar código</button>
+                    <button type="button" id="btn-run">Executar</button>
+                    <button type="button" id="btn-debug">Depurar</button>
+                    <button type="button" id="btn-previous">Voltar</button>
+                    <button type="button" id="btn-next">Avançar</button>
+                </div>
+                <div class="output-content">
+                    <textarea id="output-display" readonly></textarea>
+                </div>
             </div>
         </div>
-        <div class="output-column">
-            <div class="output-header">
-                <button type="button">Run</button>
-                <button type="button">Debug</button>
-                <button type="button">Step back</button>
-                <button type="button">Step forward</button>
-            </div>
-            <div class="output-content">
-                <textarea id="output-display" readonly></textarea>
-            </div>
+        <div class="memory-row">
+            <h2>Memória</h2>
+            <table id="memory-table">
+                <tr>
+                    <th></th>
+                    <th>0</th>
+                    <th>1</th>
+                    <th>2</th>
+                    <th>3</th>
+                    <th>4</th>
+                    <th>5</th>
+                    <th>6</th>
+                    <th>7</th>
+                    <th>8</th>
+                    <th>9</th>
+                </tr>
+                <tr>
+                    <td>0</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                    <td>+0000</td>
+                </tr>
+            </table>
         </div>
     </main>
+    <script type="module" src="scripts/main.js"></script>
 </body>
 </html>
