@@ -8,7 +8,7 @@
 }
 
 h1 {
-    margin-top: 3rem;
+    /* margin-top: 3rem; */
     font-size: 4rem;
     text-align: center;
 }
@@ -48,6 +48,15 @@ main {
 .source-content, .output-content {
     display: flex;
     justify-content: center;
+    border: 0.5rem solid black;
+    height: 20rem;
+    overflow-y: scroll;
+}
+
+.output-content {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: start;
 }
 
 textarea {
@@ -75,4 +84,31 @@ th {
 tr {
     margin-top: 10rem;
     letter-spacing: 0.05rem;
+}
+
+.instruction {
+    display: flex;
+    flex-flow: row wrap;
+    height: 2rem;
+    background-color: darkgrey;
+    width: 100%;
+    /* padding: 0.7rem;     */
+}
+
+.instruction-number, .instruction-word, .instruction-address, .instruction-hint {
+    font-size: 1.7rem;
+    font-family: monospace;
+    text-align: right;
+}
+
+.instruction-number {
+    background-color: #ccc;
+    height: 100%;
+    padding-left: 3rem;
+    padding-right: 0.5rem;
+}
+
+.instruction-word, .instruction-address, .instruction-hint {
+    width:7rem;
+    /* padding-left: 1rem; */
 }

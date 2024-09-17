@@ -1,3 +1,5 @@
+import { Display } from "./display.js";
+
 enum Instruction {
     // I/O
     READ = 10,
@@ -19,14 +21,6 @@ enum Instruction {
     HALT = 43
 }
 
-// enum Teste {
-//    A = (10, "A")
-// }
-
-// const Teste = {
-//     A: [10, "A"]
-// }
-
 function validNumber(numStr: string | null): number | null {
     const value = Number(numStr);
     if (Number.isNaN(value) || ((value < -9999) || (value > 9999))) {
@@ -41,24 +35,24 @@ export class State {
     programCounter: number = 0;
     memory: Array<number> = [];
 
-    constructor() {}
-
-    // constructor(memory: Array<number>) {
-    //     this.accumulator = 0;
-    //     this.programCounter = 0;
-    //     this.memory = memory;
-    // }
+    constructor() {
+        for (let i = 0; i < 100; i++) {
+            this.memory.push(0);
+        }
+    }
 }
 
 export class Interpreter {
-    states: Array<State> = [];
-    currentState: number | null = null;
-    debugMode: boolean = true;
+    states: Array<State>;
+    currentState: number | null;
+    debugMode: boolean;
+    display: Display;
 
     constructor() {
         this.states = [];
         this.currentState = null;
         this.debugMode = true;
+        this.display = new Display();
     }
 
     loadSource(srcString: string) {
@@ -68,7 +62,7 @@ export class Interpreter {
         for (const line of lines) {
             const value = validNumber(line);
             if (value) {
-                firstState.memory.push(value);
+                firstState.memory[lines.indexOf(line)] = value;
             } else {
                 alert("Erro na linha " + lines.indexOf(line) + ": instrução inválida!");
                 return;
@@ -77,7 +71,11 @@ export class Interpreter {
 
         this.states.push(firstState);
         this.currentState = 0;
-        alert("Arquivo carregado com sucesso!");
+
+        this.display.memoryTable(this.states[this.currentState]);
+        this.display.instructions(this);
+
+        //alert("Arquivo carregado com sucesso!");
     }
 
     start(isDebug: boolean) {
@@ -85,12 +83,12 @@ export class Interpreter {
         this.run();
     }
     
-    run() {
+    private run() {
         if (this.currentState === null) return;
 
         const next = this.nextState(this.states[this.currentState]);
         if (next === null) {
-            alert("A execução terminou!");
+            //alert("A execução terminou!");
             const lastState = this.states[this.currentState];
             for (let i = 0; i < lastState.memory.length; i++) {
                 console.log(lastState.memory[i] + " ");
@@ -104,12 +102,14 @@ export class Interpreter {
         this.states.push(next);
         this.currentState += 1;
 
+        this.display.memoryTable(this.states[this.currentState]);
+
         if (!this.debugMode) {
             requestAnimationFrame(() => {this.run()}); // JS???
         }
     }
 
-    nextState(current: State): State | null {
+    private nextState(current: State): State | null {
         const next: State = JSON.parse(JSON.stringify(current));
 
         const instruction: number = (current.memory[current.programCounter] / 100) | 0;

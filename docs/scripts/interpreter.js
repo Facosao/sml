@@ -1,3 +1,4 @@
+import { Display } from "./display.js";
 var Instruction;
 (function (Instruction) {
     // I/O
@@ -17,12 +18,6 @@ var Instruction;
     Instruction[Instruction["BRANCHZERO"] = 42] = "BRANCHZERO";
     Instruction[Instruction["HALT"] = 43] = "HALT";
 })(Instruction || (Instruction = {}));
-// enum Teste {
-//    A = (10, "A")
-// }
-// const Teste = {
-//     A: [10, "A"]
-// }
 function validNumber(numStr) {
     const value = Number(numStr);
     if (Number.isNaN(value) || ((value < -9999) || (value > 9999))) {
@@ -36,16 +31,22 @@ export class State {
     accumulator = 0;
     programCounter = 0;
     memory = [];
-    constructor() { }
+    constructor() {
+        for (let i = 0; i < 100; i++) {
+            this.memory.push(0);
+        }
+    }
 }
 export class Interpreter {
-    states = [];
-    currentState = null;
-    debugMode = true;
+    states;
+    currentState;
+    debugMode;
+    display;
     constructor() {
         this.states = [];
         this.currentState = null;
         this.debugMode = true;
+        this.display = new Display();
     }
     loadSource(srcString) {
         const lines = srcString.replace("\r", "").split("\n");
@@ -53,7 +54,7 @@ export class Interpreter {
         for (const line of lines) {
             const value = validNumber(line);
             if (value) {
-                firstState.memory.push(value);
+                firstState.memory[lines.indexOf(line)] = value;
             }
             else {
                 alert("Erro na linha " + lines.indexOf(line) + ": instrução inválida!");
@@ -62,7 +63,9 @@ export class Interpreter {
         }
         this.states.push(firstState);
         this.currentState = 0;
-        alert("Arquivo carregado com sucesso!");
+        this.display.memoryTable(this.states[this.currentState]);
+        this.display.instructions(this);
+        //alert("Arquivo carregado com sucesso!");
     }
     start(isDebug) {
         this.debugMode = isDebug;
@@ -73,7 +76,7 @@ export class Interpreter {
             return;
         const next = this.nextState(this.states[this.currentState]);
         if (next === null) {
-            alert("A execução terminou!");
+            //alert("A execução terminou!");
             const lastState = this.states[this.currentState];
             for (let i = 0; i < lastState.memory.length; i++) {
                 console.log(lastState.memory[i] + " ");
@@ -85,6 +88,7 @@ export class Interpreter {
         }
         this.states.push(next);
         this.currentState += 1;
+        this.display.memoryTable(this.states[this.currentState]);
         if (!this.debugMode) {
             requestAnimationFrame(() => { this.run(); }); // JS???
         }

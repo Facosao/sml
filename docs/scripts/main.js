@@ -3,6 +3,7 @@ const interpreter = new Interpreter();
 document.getElementById("btn-load")?.addEventListener("click", () => {
     const src = document
         .getElementById("source-file")?.value;
+    // interpreter.internalReset();
     interpreter.loadSource(src);
 });
 document.getElementById("btn-run")?.addEventListener("click", () => {
