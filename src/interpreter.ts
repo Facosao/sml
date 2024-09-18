@@ -59,12 +59,12 @@ export class Interpreter {
         const lines = srcString.replace("\r", "").split("\n");
         const firstState = new State();
         
-        for (const line of lines) {
-            const value = validNumber(line);
-            if (value) {
-                firstState.memory[lines.indexOf(line)] = value;
+        for (let i = 0; i < lines.length; i++) {
+            const value = validNumber(lines[i]);
+            if (value !== null) {
+                firstState.memory[i] = value;
             } else {
-                alert("Erro na linha " + lines.indexOf(line) + ": instrução inválida!");
+                alert("Erro na linha " + i + 1 + ": instrução inválida!");
                 return;
             }
         }
@@ -171,19 +171,19 @@ export class Interpreter {
             }
 
             case Instruction.BRANCH: {
-                next.programCounter = next.memory[operand];
+                next.programCounter = operand;
                 break;
             }
 
             case Instruction.BRANCHNEG: {
-                if (next.memory[operand] < 0) {
-                    next.programCounter = next.memory[operand];
+                if (next.accumulator < 0) {
+                    next.programCounter = operand;
                 }
                 break;
             }
             case Instruction.BRANCHZERO: {
-                if (next.memory[operand] === 0) {
-                    next.programCounter = next.memory[operand];
+                if (next.accumulator === 0) {
+                    next.programCounter = operand;
                 }
                 break;
             }
@@ -193,7 +193,8 @@ export class Interpreter {
             }
 
             default:
-                console.log("Unexpected instruction: ", instruction);
+                // console.log("Unexpected instruction: ", instruction);
+                throw new Error("Unexpected instruction: " + instruction + ", Address: " + current.programCounter);
         }
 
         return next;
