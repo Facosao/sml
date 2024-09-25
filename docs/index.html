@@ -12,22 +12,33 @@
     <!-- https://game-icons.net/1x1/delapouite/cpu.html#download -->
 </head>
 <body>
-    <h1>Simpletron Machine Language</h1>
+    <h1>Simpletron Computer</h1>
     <main>
-        <div class="source-output-row">
-            <div class="source-column">
-                <div class="source-header">
+        <div class="simple-sml-column">
+            <div class="simple-column">
+                <div class="simple-header">
+                    <h2>Compilador SIMPLE</h2>
+                </div>
+                <div class="simple-content">
+                    <p>Em breve...</p>
+                </div>
+            </div>
+            <div class="sml-column">
+                <div class="sml-header">
                     <button type="button">Enviar arquivo...</button>
                 </div>
-                <div class="source-content">
+                <div class="sml-content">
                     <textarea
                         id="source-file"
                         placeholder="Insira o código fonte aqui ou envie um arquivo."
                     ></textarea>
                 </div>
             </div>
+        </div>
+        <div class="program-column">
             <div class="output-column">
                 <div class="output-header">
+                    <h2>Executar</h2>
                     <button type="button" id="btn-load">Carregar código</button>
                     <button type="button" id="btn-run">Executar</button>
                     <button type="button" id="btn-debug">Depurar</button>
@@ -43,8 +54,6 @@
                     </div> -->
                 </div>
             </div>
-        </div>
-        <div class="memory-row">
             <table id="memory-table">
                 <tr>
                     <th></th>

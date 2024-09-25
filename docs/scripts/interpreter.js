@@ -78,12 +78,12 @@ export class Interpreter {
         if (next === null) {
             //alert("A execução terminou!");
             const lastState = this.states[this.currentState];
-            for (let i = 0; i < lastState.memory.length; i++) {
-                console.log(lastState.memory[i] + " ");
-                if ((i > 0) && ((i % 10) === 0)) {
-                    console.log("\n");
-                }
-            }
+            // for (let i = 0; i < lastState.memory.length; i++) {
+            //     console.log(lastState.memory[i] + " ");
+            //     if ((i > 0) && ((i % 10) === 0)) {
+            //         console.log("\n");
+            //     }
+            // }            
             return;
         }
         this.states.push(next);
@@ -95,6 +95,7 @@ export class Interpreter {
     }
     nextState(current) {
         const next = JSON.parse(JSON.stringify(current));
+        console.log("PC: " + current.programCounter + " ACC: " + current.accumulator + " INST: " + current.memory[current.programCounter]);
         const instruction = (current.memory[current.programCounter] / 100) | 0;
         const operand = (current.memory[current.programCounter] % 100) | 0;
         next.programCounter += 1;
@@ -122,23 +123,28 @@ export class Interpreter {
             }
             case Instruction.ADD: {
                 next.accumulator += next.memory[operand];
+                // #TODO: Check for overflow!
                 break;
             }
             case Instruction.SUBTRACT: {
                 next.accumulator -= next.memory[operand];
+                // #TODO: Check for overflow!
                 break;
             }
             case Instruction.MULTIPLY: {
                 next.accumulator *= next.memory[operand];
+                // #TODO: Check for overflow!
                 break;
             }
             case Instruction.DIVIDE: {
                 next.accumulator /= next.memory[operand];
                 next.accumulator |= 0;
+                // #TODO: Check for overflow!
                 break;
             }
             case Instruction.MODULE: {
                 next.accumulator %= next.memory[operand];
+                // #TODO: Check for overflow!
                 break;
             }
             case Instruction.BRANCH: {
