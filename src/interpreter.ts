@@ -112,7 +112,7 @@ export class Interpreter {
     private nextState(current: State): State | null {
         const next: State = JSON.parse(JSON.stringify(current));
 
-        console.log("PC: " + current.programCounter + " ACC: " + current.accumulator + " INST: " + current.memory[current.programCounter]);
+        //console.log("PC: " + current.programCounter + " ACC: " + current.accumulator + " INST: " + current.memory[current.programCounter]);
 
         const instruction: number = (current.memory[current.programCounter] / 100) | 0;
         const operand: number = (current.memory[current.programCounter] % 100) | 0;
