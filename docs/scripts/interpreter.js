@@ -95,7 +95,7 @@ export class Interpreter {
     }
     nextState(current) {
         const next = JSON.parse(JSON.stringify(current));
-        console.log("PC: " + current.programCounter + " ACC: " + current.accumulator + " INST: " + current.memory[current.programCounter]);
+        //console.log("PC: " + current.programCounter + " ACC: " + current.accumulator + " INST: " + current.memory[current.programCounter]);
         const instruction = (current.memory[current.programCounter] / 100) | 0;
         const operand = (current.memory[current.programCounter] % 100) | 0;
         next.programCounter += 1;
